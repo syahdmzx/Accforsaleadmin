@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Account Manager</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="logo">
+      <div class="logo-icon">A</div>
+      <div>
+        <h2>Account Manager</h2>
+        <span>Admin Panel</span>
+      </div>
+    </div>
+
+    <nav class="menu">
+
+      <button class="menu-item active" onclick="showSection('dashboard')">
+        <span>📊</span>
+        Dashboard
+      </button>
+
+      <button class="menu-item" onclick="showSection('accounts')">
+        <span>👤</span>
+        Accounts
+      </button>
+
+      <button class="menu-item" onclick="showSection('create')">
+        <span>➕</span>
+        Create Account
+      </button>
+
+      <button class="menu-item" onclick="showSection('email')">
+        <span>✉️</span>
+        Email Template
+      </button>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+      <button class="menu-item">
+        <span>⚙️</span>
+        Settings
+      </button>
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+
+      <div>
+        <h1 id="pageTitle">Dashboard</h1>
+        <p>Manage your account records easily.</p>
+      </div>
+
+      <div class="admin-profile">
+        <div class="admin-avatar">A</div>
+
+        <div>
+          <strong>Administrator</strong>
+          <span>Admin</span>
+        </div>
+      </div>
+
+    </header>
+
+
+    <!-- ================= DASHBOARD ================= -->
+    <section id="dashboard" class="page-section active-section">
+
+      <div class="welcome-card">
+
+        <div>
+          <span class="welcome-label">Welcome back 👋</span>
+
+          <h2>Account Management</h2>
+
+          <p>
+            Manage your account records, email templates and business data
+            from one place.
+          </p>
+
+          <button class="primary-btn" onclick="showSection('create')">
+            + Create New Account
+          </button>
+        </div>
+
+        <div class="welcome-icon">
+          👤
+        </div>
+
+      </div>
+
+
+      <!-- STATISTICS -->
+
+      <div class="stats-grid">
+
+        <div class="stat-card">
+          <div class="stat-icon purple">👥</div>
+
+          <div>
+            <span>Total Accounts</span>
+            <h2 id="totalAccounts">0</h2>
+          </div>
+        </div>
+
+
+        <div class="stat-card">
+          <div class="stat-icon green">🟢</div>
+
+          <div>
+            <span>Available</span>
+            <h2 id="availableAccounts">0</h2>
+          </div>
+        </div>
+
+
+        <div class="stat-card">
+          <div class="stat-icon orange">💰</div>
+
+          <div>
+            <span>Total Value</span>
+            <h2 id="totalValue">RM0</h2>
+          </div>
+        </div>
+
+
+        <div class="stat-card">
+          <div class="stat-icon blue">✉️</div>
+
+          <div>
+            <span>Email Templates</span>
+            <h2 id="totalTemplates">0</h2>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- RECENT ACCOUNTS -->
+
+      <div class="content-card">
+
+        <div class="card-header">
+
+          <div>
+            <h3>Recent Accounts</h3>
+            <p>Recently added account records.</p>
+          </div>
+
+          <button class="text-btn" onclick="showSection('accounts')">
+            View All
+          </button>
+
+        </div>
+
+        <div id="recentAccounts" class="empty-state">
+
+          <div class="empty-icon">👤</div>
+
+          <h3>No accounts yet</h3>
+
+          <p>
+            Create your first account record to see it here.
+          </p>
+
+          <button class="primary-btn" onclick="showSection('create')">
+            Create Account
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ================= ACCOUNTS ================= -->
+    <section id="accounts" class="page-section">
+
+      <div class="section-header">
+
+        <div>
+          <h2>Account Records</h2>
+
+          <p>
+            Manage all your account records in one place.
+          </p>
+        </div>
+
+        <button class="primary-btn" onclick="showSection('create')">
+          + Create Account
+        </button>
+
+      </div>
+
+
+      <!-- SEARCH -->
+
+      <div class="search-box">
+
+        <input
+          type="text"
+          id="searchAccount"
+          placeholder="🔍 Search username or account name..."
+          oninput="searchAccounts()"
+        >
+
+        <select id="statusFilter" onchange="filterAccounts()">
+
+          <option value="all">All Status</option>
+
+          <option value="available">
+            Available
+          </option>
+
+          <option value="sold">
+            Sold
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- ACCOUNT LIST -->
+
+      <div id="accountList" class="account-grid">
+
+        <div class="empty-state">
+
+          <div class="empty-icon">📂</div>
+
+          <h3>No account records</h3>
+
+          <p>
+            Your created accounts will appear here.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ================= CREATE ACCOUNT ================= -->
+    <section id="create" class="page-section">
+
+      <div class="section-header">
+
+        <div>
+          <h2>Create Account</h2>
+
+          <p>
+            Add a new account record to your dashboard.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="form-card">
+
+        <form id="accountForm">
+
+
+          <!-- PROFILE -->
+
+          <div class="form-section-title">
+            <span>👤</span>
+            Profile Information
+          </div>
+
+
+          <div class="profile-upload">
+
+            <div id="profilePreview" class="profile-preview">
+              👤
